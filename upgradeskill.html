@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade Skill - VINIX7 Skill Match+</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- GLOBAL VARIABLES --- */
+        :root { 
+            --primary-color: #2196F3; 
+            --logo-blue: #003399; 
+            --logo-yellow: #FFC107; 
+            --text-dark: #333;
+            --border-color: #e0e0e0;
+        }
+        
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+        body { background:#fff; color:var(--text-dark); opacity: 0; animation: fadeIn 0.5s forwards; }
+        @keyframes fadeIn { to { opacity: 1; } }
+        
+        .container { max-width:1280px; margin:0 auto; padding:0 20px; }
+
+        /* --- HEADER & NAVBAR --- */
+        header { padding:15px 0; border-bottom:1px solid #eee; background:#fff; position:sticky; top:0; z-index:1000; }
+        .nav-wrapper { display:flex; justify-content:space-between; align-items:center; }
+        
+        /* Logo Text Style */
+        .logo-brand { text-decoration:none; display:flex; align-items:center; font-size:1.6rem; }
+        .logo-vinix { font-weight:800; color:var(--logo-blue); letter-spacing:-1px; }
+        .logo-seven { font-weight:800; color:var(--logo-yellow); }
+        .logo-tagline { font-weight:700; color:#000; font-size:1.1rem; margin-left:5px; }
+        
+        /* Navigation Links */
+        .nav-links { display:flex; gap:20px; list-style:none; }
+        .nav-links a { text-decoration:none; color:#444; font-size:0.9rem; font-weight:500; transition:0.3s; }
+        .nav-links a:hover { color:var(--primary-color); }
+        
+        /* Actions Area */
+        .actions { display:flex; align-items:center; gap:15px; position:relative; }
+        .btn-daftar-nav { background:var(--primary-color); color:white; padding:8px 25px; border-radius:5px; text-decoration:none; font-weight:600; transition:0.3s; }
+        .btn-daftar-nav:hover { background:#1976D2; }
+        
+        /* Profile Dropdown */
+        .profile-wrapper { position: relative; display: inline-block; }
+        .user-icon { color:#000; font-size:2rem; cursor:pointer; }
+        .dropdown-box { 
+            display:none; 
+            position:absolute; 
+            top:150%; right:0; 
+            background:white; 
+            min-width:160px; 
+            box-shadow:0 5px 15px rgba(0,0,0,0.15); 
+            padding:15px; 
+            border-radius:8px; 
+            z-index:2000; 
+            border:1px solid #eee; 
+            text-align:left; 
+        }
+        .dropdown-name { font-weight:700; display:block; margin-bottom:10px; color:#333; font-size:1rem; }
+        .btn-logout { 
+            display:block; width:100%; padding:8px 0; 
+            background:#f5f5f5; color:#333; 
+            text-align:center; text-decoration:none; 
+            border-radius:5px; font-size:0.9rem; font-weight:600; 
+            transition:0.2s; 
+        }
+        .btn-logout:hover { background:#e0e0e0; }
+        .show { display:block; animation: slideDown 0.2s ease; }
+        @keyframes slideDown { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
+
+        /* --- CONTENT --- */
+        .page-content { padding-bottom:50px; }
+        .brand-center { text-align:center; margin-top:30px; margin-bottom:20px; }
+        .page-title h1 { font-size:1.8rem; font-weight:700; margin-bottom:5px; }
+        
+        .skill-label { 
+            font-weight:600; font-size:1rem; 
+            margin-bottom:20px; display:inline-block; 
+        }
+        
+        /* GRID JADWAL */
+        .schedule-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:20px; }
+        
+        .schedule-card { 
+            border:1px solid var(--border-color); 
+            border-radius:8px; 
+            padding:20px; 
+            background:#fff; 
+            transition:0.3s; 
+        }
+        .schedule-card:hover { 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); 
+            border-color: var(--primary-color); 
+        }
+        
+        .card-header { font-weight:700; font-size:1rem; margin-bottom:15px; color:var(--text-dark); }
+        
+        /* Layout Baris Jadwal */
+        .schedule-row { 
+            display:flex; 
+            margin-bottom:8px; 
+            font-size:0.9rem; 
+            align-items: center;
+        }
+        
+        /* Lebar Label Hari (Senin, Selasa, dll) */
+        .day-label { 
+            width: 70px; 
+            font-weight: 600; 
+            color: var(--text-dark); 
+        }
+        
+        /* Lebar Jam */
+        .day-time { 
+            width: 140px; 
+            font-weight: 500; 
+            color: #444; 
+        }
+        
+        .materi { 
+            font-weight: 600; 
+            color: var(--text-dark); 
+        }
+        
+        .card-link { 
+            margin-top:15px; 
+            font-weight:700; 
+            font-size:0.9rem; 
+        }
+        
+        @media(max-width:1024px){ 
+            .nav-links{ display:none; } 
+            .schedule-grid{ grid-template-columns:1fr; } 
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-wrapper">
+            <a href="dashboard.html" class="logo-brand">
+                <span class="logo-vinix">VINIX</span><span class="logo-seven">7</span><span class="logo-tagline">Skill Match+</span>
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="dashboard.html">Beranda</a></li>
+                    <li><a href="dashboard.html#fitur">Fitur</a></li>
+                    <li><a href="dashboard.html#skill">Skill</a></li>
+                    <li><a href="dashboard.html#testimoni">Testimoni</a></li>
+                    <li><a href="dashboard.html#about">About Us</a></li>
+                    <li><a href="dashboard.html#kontak">Kontak</a></li>
+                    <li><a href="upgradeskill.html">Upgrade Skill</a></li>
+                    <li><a href="e-certificate.html">E-Certificate</a></li>
+                    <li><a href="carrertracer.html">Career Tracker</a></li>
+                </ul>
+            </nav>
+            <div class="actions">
+                <a href="pilihmentor.html" class="btn-daftar-nav">Daftar</a>
+                
+                <div class="profile-wrapper">
+                    <i class="fas fa-user-circle user-icon" onclick="toggleDropdown()"></i>
+                    <div class="dropdown-box" id="userDropdown">
+                        <span class="dropdown-name" id="profileUsername">Tamu</span>
+                        <a href="login.html" class="btn-logout" onclick="logoutUser(event)">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container page-content">
+        <div class="brand-center">
+            <div class="logo-brand" style="justify-content:center; font-size:2rem;">
+                <span class="logo-vinix">VINIX</span><span class="logo-seven">7</span><span class="logo-tagline">Skill Match+</span>
+            </div>
+        </div>
+
+        <div class="page-title">
+            <h1>Upgrade Skill</h1>
+            <p>Pada fitur ini akan menampilkan jadwal kelas anda</p>
+        </div>
+
+        <div class="skill-label" id="displaySkillName">Skill : (Memuat...)</div>
+
+        <div class="schedule-grid" id="scheduleContainer">
+            </div>
+    </div>
+
+    <script>
+        // 1. LOGIC DROPDOWN PROFIL
+        function toggleDropdown() {
+            var dropdown = document.getElementById("userDropdown");
+            dropdown.classList.toggle("show");
+        }
+
+        // Tutup dropdown jika klik di luar
+        window.onclick = function(event) {
+            if (!event.target.matches('.user-icon')) {
+                var dropdowns = document.getElementsByClassName("dropdown-box");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        // Fungsi Logout
+        function logoutUser(event) {
+            event.preventDefault();
+            localStorage.removeItem('username');
+            localStorage.removeItem('email');
+            window.location.href = 'login.html';
+        }
+
+        // 2. LOGIC MENAMPILKAN DATA (DATA DARI PENDAFTARAN.HTML)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Baca username dari localStorage untuk profil dropdown
+            const username = localStorage.getItem('username');
+            const profileNameEl = document.getElementById('profileUsername');
+            if (username) {
+                profileNameEl.innerText = username;
+            } else {
+                profileNameEl.innerText = 'Tamu';
+            }
+
+                // Ambil data dari Local Storage (Menggunakan key 'vinix_skill' dan 'vinix_jadwal' dari file sebelumnya)
+            const savedSkill = localStorage.getItem('vinix_skill');
+            const savedJadwal = localStorage.getItem('vinix_jadwal');
+
+            // Tampilkan Nama Skill
+            const skillElement = document.getElementById('displaySkillName');
+            if (savedSkill) {
+                skillElement.innerText = "Skill : " + savedSkill;
+            } else {
+                skillElement.innerText = "Skill : UI/UX (Default)";
+            }
+
+            // Tampilkan Jadwal (Looping 16 Pertemuan) - prefer admin-configured schedule
+            const scheduleContainer = document.getElementById('scheduleContainer');
+            const adminSchedule = JSON.parse(localStorage.getItem('vinix_upgrade_schedule')) || null;
+            // If no admin schedule, fall back to the old behavior
+            if (adminSchedule && adminSchedule.length > 0) {
+                let htmlContent = '';
+                adminSchedule.forEach((s, idx) => {
+                    const pertemuan = s.pertemuan || (idx + 1);
+                    const entries = s.entries || [];
+                    
+                    htmlContent += `
+                    <div class="schedule-card">
+                        <div class="card-header">Jadwal : Pertemuan ${pertemuan}</div>`;
+
+                    // Render each day entry (time, materi, then link on separate line)
+                    entries.forEach(entry => {
+                        if (entry.day) {
+                            const linkDisplay = entry.link ? `<a href="${entry.link}" target="_blank">${entry.link}</a>` : '-';
+                            htmlContent += `
+                        <div style="margin-bottom: 12px;">
+                            <div class="schedule-row">
+                                <div style="flex: 1; color: #444; font-weight: 500;">${entry.time || '-'} &nbsp;&nbsp; Materi : ${entry.materi || '-'}</div>
+                            </div>
+                            <div class="schedule-row" style="margin-top: 4px;">
+                                <div style="flex: 1; color: #444; font-weight: 500;">Link Zoom : ${linkDisplay}</div>
+                            </div>
+                        </div>`;
+                        }
+                    });
+
+                    htmlContent += `</div>`;
+                });
+
+                scheduleContainer.innerHTML = htmlContent;
+            } else {
+                // Fallback original rendering when no admin schedule present
+                const timeSlot = savedJadwal ? ": " + savedJadwal : ": 09:00 - 11.30"; 
+                let htmlContent = '';
+                for (let i = 1; i <= 16; i++) {
+                    htmlContent += `
+                    <div class="schedule-card">
+                        <div class="card-header">Jadwal : Pertemuan ${i}</div>
+                        
+                        <div style="margin-bottom: 12px;">
+                            <div class="schedule-row">
+                                <div style="flex: 1; color: #444; font-weight: 500;">${timeSlot} &nbsp;&nbsp; Senin : -</div>
+                            </div>
+                            <div class="schedule-row">
+                                <div style="flex: 1; color: #444; font-weight: 500;">${timeSlot} &nbsp;&nbsp; Materi : -</div>
+                            </div>
+                            <div class="schedule-row" style="margin-top: 4px;">
+                                <div style="flex: 1; color: #444; font-weight: 500;">Link Zoom : -</div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 12px;">
+                            <div class="schedule-row">
+                                <div style="flex: 1; color: #444; font-weight: 500;">${timeSlot} &nbsp;&nbsp; Selasa : -</div>
+                            </div>
+                            <div class="schedule-row">
+                                <div style="flex: 1; color: #444; font-weight: 500;">${timeSlot} &nbsp;&nbsp; Materi : -</div>
+                            </div>
+                            <div class="schedule-row" style="margin-top: 4px;">
+                                <div style="flex: 1; color: #444; font-weight: 500;">Link Zoom : -</div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 12px;">
+                            <div class="schedule-row">
+                                <div style="flex: 1; color: #444; font-weight: 500;">${timeSlot} &nbsp;&nbsp; Rabu : -</div>
+                            </div>
+                            <div class="schedule-row">
+                                <div style="flex: 1; color: #444; font-weight: 500;">${timeSlot} &nbsp;&nbsp; Materi : -</div>
+                            </div>
+                            <div class="schedule-row" style="margin-top: 4px;">
+                                <div style="flex: 1; color: #444; font-weight: 500;">Link Zoom : -</div>
+                            </div>
+                        </div>
+                    </div>`;
+                }
+                scheduleContainer.innerHTML = htmlContent;
+            }
+        });
+    </script>
+
+</body>
+</html>

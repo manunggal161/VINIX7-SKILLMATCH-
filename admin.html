@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VINIX Skill Match+ - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh; /* Agar selalu di tengah layar */
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      width: 100%;
+    }
+
+    .logo {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    /* Styling Logo Teks (Konsisten dengan halaman lain) */
+    .logo-text {
+        font-size: 2rem;
+        font-weight: 800;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .logo-text span:first-child { color: #003399; letter-spacing: -1px; } /* VINIX Blue */
+    .logo-text span:nth-child(2) { color: #FFC107; } /* 7 Yellow */
+    .logo-text small { 
+        font-size: 1.2rem; 
+        color: #333; 
+        font-weight: 700; 
+        margin-left: 5px; 
+    }
+
+    h2 {
+      margin: 10px 0 30px 0;
+      font-size: 26px;
+      font-weight: 700;
+      color: #000;
+    }
+
+    .form-box {
+      width: 100%;
+      max-width: 400px;
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      margin-bottom: 20px;
+      font-size: 14px;
+      box-sizing: border-box; /* Agar padding tidak merusak lebar */
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: #008cff;
+      box-shadow: 0 0 5px rgba(0, 140, 255, 0.2);
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      background: #008cff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      transition: background 0.2s;
+      margin-top: 10px;
+    }
+
+    .btn-login:hover {
+      background: #0076d1;
+    }
+
+    /* Tombol Login Admin */
+    .admin-btn {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+      color: #666;
+      font-weight: 600;
+      padding: 10px;
+      border-radius: 8px;
+      transition: 0.2s;
+      border: 1px dashed transparent;
+    }
+
+    .admin-btn:hover {
+      color: #333;
+      background-color: #f9f9f9;
+      border-color: #ccc;
+    }
+
+    .admin-btn i {
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <div class="logo">
+       <a href="#" class="logo-text">
+          <span>VINIX</span><span>7</span>
+          <small>Skill Match+</small>
+       </a>
+    </div>
+
+    <h2>Login</h2>
+
+    <div class="form-box">
+      <form id="loginForm">
+        <label>Nama</label>
+        <input type="text" id="namaInput" placeholder="Masukkan Nama Lengkap" required />
+
+        <label>Email</label>
+        <input type="email" id="emailInput" placeholder="Masukkan Alamat Email" required />
+
+        <button type="submit" class="btn-login">Masuk Sebagai User</button>
+      </form>
+
+      <div class="admin-btn" id="btnAdminLogin">
+        <i class="fas fa-user-shield"></i> Login sebagai Admin
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 1. LOGIKA LOGIN USER BIASA
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      const nama = document.getElementById("namaInput").value;
+      const email = document.getElementById("emailInput").value;
+      
+      // Simpan data user ke localStorage
+      localStorage.setItem("username", nama);
+      localStorage.setItem("email", email);
+      localStorage.setItem("role", "user"); // Set role sebagai user
+      
+      // Redirect ke Landing Page (index.html)
+      alert("Login Berhasil! Selamat datang, " + nama);
+      window.location.href = "index.html"; 
+    });
+
+    // 2. LOGIKA LOGIN ADMIN
+    document.getElementById("btnAdminLogin").addEventListener("click", function() {
+      // Simulasi keamanan sederhana
+      const password = prompt("Masukkan Password Admin:");
+      
+      // Password Hardcoded untuk simulasi: "admin123"
+      if (password === "admin123") {
+          // Simpan data admin
+          localStorage.setItem("username", "Administrator");
+          localStorage.setItem("role", "admin");
+          
+          alert("Login Admin Berhasil!");
+          // Redirect ke Dashboard Admin (Buat file admin-dashboard.html nanti)
+          // Untuk sementara kita arahkan ke index.html tapi statusnya admin
+          window.location.href = "admin-dashboard.html"; 
+      } else if (password !== null) {
+          alert("Password Salah!");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VINIX7 Skill Match+ | Landing Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary-color: #2196F3;
+            --logo-blue: #003399;
+            --logo-yellow: #FFC107;
+            --text-dark: #333;
+            --text-light: #666;
+            --bg-color: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        section { scroll-margin-top: 90px; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- HEADER & NAVBAR --- */
+        header {
+            background: #fff; padding: 15px 0; border-bottom: 1px solid #eee;
+            position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .nav-wrapper { display: flex; justify-content: space-between; align-items: center; }
+        .logo-brand { text-decoration: none; display: flex; align-items: center; font-size: 1.6rem; }
+        .logo-vinix { font-weight: 800; color: var(--logo-blue); letter-spacing: -1px; }
+        .logo-seven { font-weight: 800; color: var(--logo-yellow); }
+        .logo-tagline { font-weight: 700; color: #000; font-size: 1.1rem; margin-left: 5px; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { font-size: 0.9rem; font-weight: 500; color: #444; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary-color); }
+        .actions { display: flex; align-items: center; gap: 15px; position: relative; }
+        .btn-daftar { background-color: var(--primary-color); color: white; padding: 8px 25px; border-radius: 5px; font-size: 0.95rem; font-weight: 600; transition: 0.3s; }
+        .btn-daftar:hover { background-color: #1976D2; }
+
+        /* Profile Dropdown */
+        .profile-wrapper { position: relative; display: inline-block; }
+        .user-icon { color: #000; font-size: 2rem; cursor: pointer; }
+        .dropdown-box {
+            display: none; position: absolute; top: 150%; right: 0;
+            background: white; min-width: 150px; box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            padding: 15px; border-radius: 8px; z-index: 2000; border: 1px solid #eee; text-align: left;
+        }
+        .dropdown-name { font-weight: 700; display: block; margin-bottom: 10px; color: #333; }
+        .btn-logout {
+            display: block; width: 100%; padding: 8px 0; background: #f5f5f5; color: #333;
+            text-align: center; border-radius: 5px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: 0.2s;
+        }
+        .btn-logout:hover { background: #e0e0e0; }
+        .show { display: block; animation: slideDown 0.2s ease; }
+        @keyframes slideDown { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
+
+        /* --- HERO --- */
+        .hero { text-align: center; padding: 60px 0; }
+        .hero h1 { font-size: 2rem; margin-bottom: 20px; line-height: 1.3; }
+        .hero-img-container { width: 100%; height: 350px; border-radius: 10px; margin: 20px 0; overflow: hidden; position: relative; }
+        .hero-img-container img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-text-overlay {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: rgba(255,255,255,0.95); padding: 15px 30px;
+            border-radius: 10px; font-weight: 700; font-size: 1.3rem; width: auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .hero-desc { font-size: 0.95rem; color: var(--text-light); max-width: 800px; margin: 30px auto; }
+
+        /* --- SECTIONS --- */
+        .section-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 10px; margin-top: 60px; text-align: center; }
+        .section-subtitle { text-align: center; margin-bottom: 40px; color: var(--text-light); }
+        
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+        .feature-card { border: 1px solid var(--border-color); padding: 25px; border-radius: 10px; transition: 0.3s; background: #fff; }
+        .feature-card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.08); transform: translateY(-5px); }
+        .feature-card i { font-size: 2rem; color: var(--text-dark); margin-bottom: 15px; }
+        .feature-card h3 { font-size: 1.1rem; margin-bottom: 10px; font-weight: 600; }
+
+        .skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .skill-card { background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.03); transition: 0.3s; }
+        .skill-card h3 { margin-bottom: 20px; font-size: 1.2rem; }
+        .skill-img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; background-color: #f0f0f0; }
+
+        /* --- TESTIMONIALS STYLE --- */
+        .testimoni-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 50px; }
+        
+        .testimoni-card { 
+            background: #FFF8E1; padding: 30px; border-radius: 12px; 
+            display: flex; flex-direction: column; align-items: center; text-align: center; position: relative;
+        }
+        /* Static colors */
+        .testimoni-card:nth-child(1) { background: #FFF8E1; }
+        .testimoni-card:nth-child(2) { background: #E3F2FD; }
+        .testimoni-card:nth-child(3) { background: #FCE4EC; }
+        
+        /* Style untuk kartu ulasan user (berbeda sedikit agar terlihat bisa diedit) */
+        .testimoni-card.user-review { 
+            background: #ffffff; 
+            border: 2px solid var(--primary-color);
+        }
+
+        .testimoni-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; background-color: #ddd; }
+        .quote { font-style: italic; font-size: 0.95rem; margin-bottom: 15px; line-height: 1.5; flex-grow: 1; }
+        .user-name { font-weight: 700; font-size: 0.9rem; color: var(--primary-color); }
+        .user-role { font-size: 0.8rem; color: #666; font-weight: 500; }
+
+        /* Action Buttons (Edit/Delete) */
+        .card-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        .action-btn {
+            background: none; border: none; cursor: pointer; font-size: 1rem; padding: 5px; transition: 0.2s;
+        }
+        .btn-edit { color: #FFA000; }
+        .btn-delete { color: #D32F2F; }
+        .btn-edit:hover, .btn-delete:hover { transform: scale(1.2); }
+
+        /* --- FORM TESTIMONI (DI BAWAH) --- */
+        .review-form-container {
+            max-width: 700px; margin: 0 auto;
+            padding: 30px; background: #fff;
+            border: 1px solid #eee; border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .form-row { display: flex; gap: 15px; margin-bottom: 15px; }
+        .form-input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; outline: none; }
+        .form-textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; outline: none; height: 100px; margin-bottom: 15px; resize: vertical; }
+        
+        .btn-submit-review {
+            width: 100%; padding: 12px; background-color: var(--primary-color);
+            color: white; border: none; border-radius: 8px; font-weight: 600;
+            cursor: pointer; transition: 0.3s;
+        }
+        .btn-submit-review:hover { background-color: #1976D2; }
+        
+        .btn-cancel-review {
+            width: 100%; padding: 12px; background-color: #757575;
+            color: white; border: none; border-radius: 8px; font-weight: 600;
+            cursor: pointer; transition: 0.3s; margin-top: 10px; display: none; /* Hidden by default */
+        }
+        .btn-cancel-review:hover { background-color: #616161; }
+
+        /* --- OTHER --- */
+        .about-text { text-align: center; max-width: 900px; margin: 0 auto; color: var(--text-light); }
+        .contact-section { text-align: center; padding: 50px 0; }
+        .whatsapp-btn { display: inline-flex; align-items: center; gap: 10px; color: #25D366; font-weight: 700; font-size: 1.3rem; margin-top: 15px; }
+        .cta-section { text-align: center; padding: 60px 0; background: #fafafa; margin-top: 40px; }
+        .btn-large { background-color: var(--primary-color); color: white; padding: 15px 40px; border-radius: 30px; font-weight: 600; display: inline-block; }
+        
+        footer { text-align: center; padding: 30px; border-top: 1px solid #eee; color: #888; font-size: 0.9rem; }
+        .social-icons i { margin: 0 12px; cursor: pointer; }
+
+        @media (max-width: 1024px) { .nav-links { display: none; } }
+        @media (max-width: 768px) { .form-row { flex-direction: column; } }
+    </style>
+</head>
+<body id="home">
+
+    <header>
+        <div class="container nav-wrapper">
+            <a href="#home" class="logo-brand">
+                <span class="logo-vinix">VINIX</span><span class="logo-seven">7</span><span class="logo-tagline">Skill Match+</span>
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="dashboard.html">Beranda</a></li>
+                    <li><a href="#fitur">Fitur</a></li>
+                    <li><a href="#skill">Skill</a></li>
+                    <li><a href="#testimoni">Testimoni</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#kontak">Kontak</a></li>
+                    <li><a href="upgradeskill.html">Upgrade Skill</a></li>
+                    <li><a href="e-certificate.html">E-Certificate</a></li>
+                    <li><a href="carrertracer.html">Career Tracker</a></li>
+                </ul>
+            </nav>
+            <div class="actions">
+                <a href="pilihmentor.html" class="btn-daftar">Daftar</a>
+                <div class="profile-wrapper">
+                    <i class="fas fa-user-circle user-icon" onclick="toggleDropdown()"></i>
+                    <div class="dropdown-box" id="userDropdown">
+                        <span class="dropdown-name" id="profileName">Tamu</span>
+                        <a href="login.html" class="btn-logout" onclick="logoutUser(event)">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="hero">
+            <h1>Selamat Datang Di Website<br>
+                <span style="font-weight:800; color:var(--logo-blue);">VINIX</span><span style="font-weight:800; color:var(--logo-yellow);">7</span> <span style="font-weight:700;">Skill Match+</span>
+            </h1>
+            <div class="hero-img-container">
+                <img src="image/beranda.jpg" alt="VINIX7 Logo" style="width:450px; height:auto;" />
+                <div class="hero-text-overlay">Temukan Potensimu, Raih Karier Impianmu</div>
+            </div>
+            <p class="hero-desc">Skill Match+ adalah platform yang membantu mahasiswa dan lulusan baru menemukan jalur karier yang tepat dan mengembangkan keterampilan yang dibutuhkan untuk sukses. Di Skill Match+ ini kalian bisa terjun kelapangan langsung, baik itu magang atau bekerja yang tentunya harus bersertifikat Skill Match+. Oleh karena itu, agar kalian mendapatkan benefit tersebut kalian harus menjadi bagian dari kami.   SALAM KARIER.</p>
+        </section>
+
+        <section id="fitur">
+            <h2 class="section-title">Fitur Skill Match+</h2>
+            <p class="section-subtitle">Berbagai fitur untuk mendukung perjalanan kariermu.</p>
+            <div class="features-grid">
+                <div class="feature-card"><i class="far fa-heart"></i><h3>Pilih Mentor Terbaik</h3>
+                <h3>Dapatkan bimbingan dari mentor berpengalaman di bidang yang kamu minati.</h3></div>
+                <div class="feature-card"><i class="fas fa-book-open"></i><h3>Upgrade Skill</h3>
+                <h3>Ikuti kursus atau pelatihan untuk meningkatkan keterampilan teknis.</h3></div>
+                <div class="feature-card"><i class="fas fa-certificate"></i><h3>E-Certificate</h3>
+                <h3>Dapatkan Certificate setelah Upgrade Skill</h3></div>
+                <div class="feature-card"><i class="fas fa-user-friends"></i><h3>Career Tracker</h3>
+                <h3>Dapatkan magang atau pekerjaan diperusahaan atau instansi yang bekerjasama</h3></div>
+            </div>
+        </section>
+
+        <section id="skill">
+            <h2 class="section-title">Skill</h2>
+            <div class="skill-grid">
+                <div class="skill-card"><h3>UI/UX</h3><img src="https://placehold.co/300x200/2196F3/white?text=UI/UX" class="skill-img"></div>
+                <div class="skill-card"><h3>Web Dev</h3><img src="https://placehold.co/300x200/000000/white?text=Web+Dev" class="skill-img"></div>
+                <div class="skill-card"><h3>Graphic Designer</h3><img src="https://placehold.co/300x200/673AB7/white?text=Graphic" class="skill-img"></div>
+                <div class="skill-card"><h3>Aplikasi Perkantoran</h3><img src="https://placehold.co/300x200/1976D2/white?text=Office" class="skill-img"></div>
+            </div>
+        </section>
+
+        <section id="testimoni">
+            <h2 class="section-title">Testimoni Pengguna</h2>
+            <p class="section-subtitle">Apa kata mereka tentang kami?</p>
+
+            <div class="testimoni-grid" id="testimoniContainer">
+                
+                <div class="testimoni-card">
+                    <img src="https://placehold.co/100x100?text=Ayu" class="testimoni-img">
+                    <p class="quote">"Skill Match+ sangat membantu saya menemukan minat karier saya dan mengembangkan keterampilan yang relevan."</p>
+                    <p class="user-name">Ayu</p>
+                    <span class="user-role">Mahasiswa Teknik Informatika</span>
+                </div>
+                
+                <div class="testimoni-card">
+                    <img src="https://placehold.co/100x100?text=Budi" class="testimoni-img">
+                    <p class="quote">"Saya berhasil mendapatkan pekerjaan impian saya berkat Skill Match+. Platform ini menyediakan sumber daya lengkap."</p>
+                    <p class="user-name">Budi</p>
+                    <span class="user-role">Lulusan Sistem Informasi</span>
+                </div>
+
+                <div class="testimoni-card">
+                    <img src="https://placehold.co/100x100?text=Citra" class="testimoni-img">
+                    <p class="quote">"Kolaborasi dengan rekan-rekan di Skill Match+ sangat menyenangkan dan produktif."</p>
+                    <p class="user-name">Citra</p>
+                    <span class="user-role">Mahasiswa DKV</span>
+                </div>
+
+                </div>
+
+            <div class="review-form-container">
+                <h3 style="text-align: center; margin-bottom: 20px;">Tulis Pengalaman Anda</h3>
+                <div class="form-row">
+                    <input type="text" id="reviewName" class="form-input" placeholder="Nama Anda" required>
+                    <input type="text" id="reviewRole" class="form-input" placeholder="Pekerjaan / Jurusan" required>
+                </div>
+                <textarea id="reviewText" class="form-textarea" placeholder="Bagikan cerita dan ulasan anda di sini..." required></textarea>
+                
+                <button id="submitBtn" class="btn-submit-review" onclick="handleReviewSubmit()">Kirim Ulasan</button>
+                <button id="cancelBtn" class="btn-cancel-review" onclick="cancelEdit()">Batal Edit</button>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2 class="section-title">About Us</h2>
+            <p class="about-text">Kami adalah platform  yang menyediakan layanan pengembangan skill serta kesempatan peluang magang ke mitra perusahaan, serta membantu mahasiswa dan pencari pengalaman kerja menemukan tempat yang sesuai dengan minat dan kemampuan mereka.Kami hadir sebagai jembatan antara mahasiswa dan dunia kerja, menyediakan berbagai peluang magang yang dapat membantu mengembangkan keterampilan, membangun pengalaman, dan mempersiapkan karier masa depan.</p>
+        </section>
+
+        <section id="kontak" class="contact-section">
+            <h2 class="section-title">Kontak</h2>
+            <a href="#" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        </section>
+
+        <section class="cta-section">
+            <h2>Siap Memulai Perjalanan Karirmu ?</h2>
+            <a href="pilihmentor.html" class="btn-large">Bergabung Sekarang</a>
+        </section>
+    </div>
+
+    <footer>
+        <div class="social-icons"><i class="fab fa-twitter"></i><i class="fab fa-instagram"></i><i class="fab fa-facebook-f"></i></div>
+        <p>© 2025 VINIX7 Skill Match+. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // --- 1. LOGIC TESTIMONI (CRUD) ---
+        let isEditing = false;
+        let currentEditId = null;
+
+        // Render Ulasan saat Load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderReviews();
+            checkUser();
+        });
+
+        function renderReviews() {
+            const reviews = JSON.parse(localStorage.getItem('vinix_reviews')) || [];
+            const container = document.getElementById('testimoniContainer');
+            
+            // Hapus element dynamic lama (kelas .user-review)
+            const oldUserReviews = document.querySelectorAll('.user-review');
+            oldUserReviews.forEach(el => el.remove());
+
+            // Loop dan render (tampilkan di awal grid)
+            reviews.forEach(review => {
+                const card = document.createElement('div');
+                card.className = 'testimoni-card user-review';
+                card.innerHTML = `
+                    <img src="https://placehold.co/100x100/4CAF50/white?text=${review.name.charAt(0)}" class="testimoni-img">
+                    <p class="quote">"${review.text}"</p>
+                    <p class="user-name">${review.name}</p>
+                    <span class="user-role">${review.role}</span>
+                    <div class="card-actions">
+                        <button class="action-btn btn-edit" onclick="editReview(${review.id})"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn btn-delete" onclick="deleteReview(${review.id})"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                // Insert setelah 3 kartu statis? Atau paling depan?
+                // Kita taruh paling depan agar terlihat update-nya
+                container.insertBefore(card, container.firstChild);
+            });
+        }
+
+        function handleReviewSubmit() {
+            const nameIn = document.getElementById('reviewName');
+            const roleIn = document.getElementById('reviewRole');
+            const textIn = document.getElementById('reviewText');
+
+            if(nameIn.value === "" || textIn.value === "") {
+                alert("Nama dan Ulasan wajib diisi!");
+                return;
+            }
+
+            let reviews = JSON.parse(localStorage.getItem('vinix_reviews')) || [];
+
+            if (isEditing) {
+                // Logic Edit
+                const index = reviews.findIndex(r => r.id === currentEditId);
+                if (index !== -1) {
+                    reviews[index].name = nameIn.value;
+                    reviews[index].role = roleIn.value;
+                    reviews[index].text = textIn.value;
+                }
+                alert("Ulasan berhasil diperbarui!");
+                isEditing = false;
+                currentEditId = null;
+                document.getElementById('submitBtn').innerText = "Kirim Ulasan";
+                document.getElementById('cancelBtn').style.display = "none";
+            } else {
+                // Logic Tambah Baru
+                const newReview = {
+                    id: Date.now(), // ID Unik
+                    name: nameIn.value,
+                    role: roleIn.value,
+                    text: textIn.value
+                };
+                reviews.push(newReview);
+                alert("Terima kasih atas ulasan Anda!");
+            }
+
+            localStorage.setItem('vinix_reviews', JSON.stringify(reviews));
+            
+            // Reset Form
+            nameIn.value = "";
+            roleIn.value = "";
+            textIn.value = "";
+            
+            renderReviews();
+        }
+
+        function deleteReview(id) {
+            if(confirm("Hapus ulasan ini?")) {
+                let reviews = JSON.parse(localStorage.getItem('vinix_reviews')) || [];
+                reviews = reviews.filter(r => r.id !== id);
+                localStorage.setItem('vinix_reviews', JSON.stringify(reviews));
+                renderReviews();
+            }
+        }
+
+        function editReview(id) {
+            const reviews = JSON.parse(localStorage.getItem('vinix_reviews')) || [];
+            const review = reviews.find(r => r.id === id);
+            
+            if (review) {
+                // Isi form dengan data lama
+                document.getElementById('reviewName').value = review.name;
+                document.getElementById('reviewRole').value = review.role;
+                document.getElementById('reviewText').value = review.text;
+
+                // Ubah mode ke Edit
+                isEditing = true;
+                currentEditId = id;
+                document.getElementById('submitBtn').innerText = "Simpan Perubahan";
+                document.getElementById('cancelBtn').style.display = "block";
+                
+                // Scroll ke form
+                document.querySelector('.review-form-container').scrollIntoView({behavior: "smooth"});
+            }
+        }
+
+        function cancelEdit() {
+            isEditing = false;
+            currentEditId = null;
+            document.getElementById('reviewName').value = "";
+            document.getElementById('reviewRole').value = "";
+            document.getElementById('reviewText').value = "";
+            document.getElementById('submitBtn').innerText = "Kirim Ulasan";
+            document.getElementById('cancelBtn').style.display = "none";
+        }
+
+        // --- 2. LOGIC NAVBAR & PROFILE ---
+        function toggleDropdown() {
+            document.getElementById("userDropdown").classList.toggle("show");
+        }
+
+        function checkUser() {
+            const name = localStorage.getItem('username');
+            if(name) {
+                document.getElementById('profileName').innerText = name;
+            } else {
+                document.getElementById('profileName').innerText = 'Tamu';
+            }
+        }
+
+        function logoutUser(event) {
+            event.preventDefault();
+            localStorage.removeItem('username');
+            localStorage.removeItem('email');
+            window.location.href = 'login.html';
+        }
+
+        window.onclick = function(e) {
+            if (!e.target.matches('.user-icon')) {
+                const dd = document.getElementById("userDropdown");
+                if (dd.classList.contains('show')) dd.classList.remove('show');
+            }
+        }
+    </script>
+
+</body>
+</html>
